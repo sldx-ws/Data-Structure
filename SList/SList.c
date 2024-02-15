@@ -40,6 +40,9 @@ void SListPushBack(SListNode** pphead, SListDataType x)
 
 void SListPopBack(SListNode** pphead)
 {
+    // 1、空
+    // 2、一个节点
+    // 3、多个节点
     assert(*pphead);
 
     if ((*pphead)->_next == NULL)
@@ -74,6 +77,8 @@ void SListPushFront(SListNode** pphead, SListDataType x)
 
 void SListPopFront(SListNode** pphead)
 {
+    //1、空
+	//2、一个节点 + 3、一个以上节点
     assert(*pphead);
 
     SListNode* cur = *pphead;
