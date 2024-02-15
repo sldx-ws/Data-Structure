@@ -1,34 +1,44 @@
 #include "SeqList.h"
 
-// 初始化
-void SeqListInit(SL* ps)
+// 初始化 销毁
+void SeqListInit(SeqList* psl)
 {
     // 方法一
-    //ps->_a = NULL;
-    //ps->_size = 0;
-    //ps->_capacity = 0;
+    //psl->_a = NULL;
+    //psl->_size = 0;
+    //psl->_capacity = 0;
     
     // 方法二
-    ps->_a = (SLDataType*)malloc(sizeof(SLDataType) * 4);
-    if (ps->_a == NULL)
+    psl->_a = (SLDataType*)malloc(sizeof(SLDataType) * 4);
+    if (psl->_a == NULL)
     {
         printf("申请内存失败\n");
         exit(-1);
     }
 
-    ps->_size = 0; 
-    ps->_capacity = 4;
+    psl->_size = 0; 
+    psl->_capacity = 4;
+}
+
+void SeqListDestory(SeqList* psl)
+{
+    assert(psl->_a);
+
+    free(psl->_a);
+    psl->_a = NULL;
+    psl->_size = 0;
+    psl->_capacity = 0;
 }
 
 // 检查容量
-void SeqListCheckCapacity(SL* ps)
+void SeqListCheckCapacity(SeqList* psl)
 {
     // 如果满了，则增容
-    if (ps->_size >= ps->_capacity)
+    if (psl->_size >= psl->_capacity)
     {
-        ps->_capacity *= 2;
-        ps->_a = (SLDataType*)realloc(ps->_a, sizeof(SLDataType) * ps->_capacity);
-        if (ps->_a == NULL)
+        psl->_capacity *= 2;
+        psl->_a = (SLDataType*)realloc(psl->_a, sizeof(SLDataType) * psl->_capacity);
+        if (psl->_a == NULL)
         {
             printf("扩容失败\n");
             exit(-1);
@@ -37,72 +47,116 @@ void SeqListCheckCapacity(SL* ps)
 }
 
 // 尾插尾删 头插头删
-void SeqListPushBack(SL* ps, SLDataType x)
+void SeqListPushBack(SeqList* psl, SLDataType x)
 {
-    assert(ps);
+    assert(psl);
 
-    SeqListCheckCapacity(ps);
+    SeqListCheckCapacity(psl);
 
-    ps->_a[ps->_size] = x;
-    ++ps->_size;
+    psl->_a[psl->_size] = x;
+    ++psl->_size;
 }
 
-void SeqListPopBack(SL* ps)
+void SeqListPopBack(SeqList* psl)
 {
-    assert(ps);
-    assert(ps->_size);
+    assert(psl);
+    assert(psl->_size);
 
-    --ps->_size;
+    --psl->_size;
 }
 
-void SeqListPushFront(SL* ps, SLDataType x)
+void SeqListPushFront(SeqList* psl, SLDataType x)
 {
-    assert(ps);
+    assert(psl);
 
-    SeqListCheckCapacity(ps);
+    SeqListCheckCapacity(psl);
 
-    int end = ps->_size - 1;
+    int end = psl->_size - 1;
     while(end >= 0)
     {
-        ps->_a[end + 1] = ps->_a[end];
+        psl->_a[end + 1] = psl->_a[end];
         --end;
     }
 
-    ps->_a[0] = x;
-    ++ps->_size;
+    psl->_a[0] = x;
+    ++psl->_size;
 }
 
-void SeqListPopFront(SL* ps)
+void SeqListPopFront(SeqList* psl)
 {
-    assert(ps);
-    assert(ps->_size);
+    assert(psl);
+    assert(psl->_size);
 
-    int start = 0;
-    while(start < ps->_size - 1)
+    int begin = 0;
+    while(begin < psl->_size - 1)
     {
-        ps->_a[start] = ps->_a[start + 1];
-        ++start;
+        psl->_a[begin] = psl->_a[begin + 1];
+        ++begin;
     }
 
-    --ps->_size;
+    --psl->_size;
 }
 
 // 任意位置插入删除
-void SeqListInsert(SL* ps, int pos, SLDataType x);
-void SeqListErase(SL* ps, int pos);
+void SeqListInsert(SeqList* psl, int pos, SLDataType x)
+{
+    assert(psl);
+    // 若形参pos的类型为size_t，则不用判断 >= 0
+    assert(pos >= 0 && pos <= psl->_size);
+
+    ++psl->_size;
+    SeqListCheckCapacity(psl);
+
+    int end = psl->_size - 1;
+    while (end > pos)
+    {
+        psl->_a[end] = psl->_a[end - 1];
+        --end;
+    }
+
+    psl->_a[pos] = x;
+}
+
+void SeqListErase(SeqList* psl, int pos)
+{
+    assert(psl);
+    assert(pos >= 0 && pos < psl->_size);
+
+    int begin = pos;
+    while (begin < psl->_size - 1)
+    {
+        psl->_a[begin] = psl->_a[begin + 1];
+        ++begin;
+    }
+
+    --psl->_size;
+}
 
 // print 
-void Print(SL* ps)
+void Print(SeqList* psl)
 {
-    assert(ps);
+    assert(psl);
 
-    for (int i = 0; i < ps->_size; ++i)
+    for (int i = 0; i < psl->_size; ++i)
     {
-        printf("%d ", ps->_a[i]);
+        printf("%d ", psl->_a[i]);
     }
 
     printf("\n");
 }
 
-// 查找
-int SeqListFind(SL* ps, SLDataType x);
+// 查找（返回下标）
+int SeqListFind(SeqList* psl, SLDataType x)
+{
+    assert(psl);
+
+    for (int i = 0; i < psl->_size; ++i)
+    {
+        if (x == psl->_a[i])
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}
