@@ -8,21 +8,21 @@ void InsertSort(int* a, int n)
     
     for (int i = 0; i < n - 1; ++i)
     {
-        int endIndex = i;
-        int tmp = a[endIndex + 1];
-        while(endIndex >=0)
+        int endi = i;
+        int tmp = a[endi + 1];
+        while(endi >=0)
         {
-            if (tmp < a[endIndex])
+            if (tmp < a[endi])
             {
-                a[endIndex + 1] = a[endIndex];
-                --endIndex;
+                a[endi + 1] = a[endi];
+                --endi;
             }
             else 
             {
                 break;
             }
             
-            a[endIndex + 1] = tmp;
+            a[endi + 1] = tmp;
         }
     }
 }
@@ -37,18 +37,18 @@ void ShellSort(int* a, int n)
 	{
 		gap = gap / 3 + 1;
 
-		// [0,endIndex] 插入 endIndex+gap [0, endIndex+gap]有序  -- 间隔为gap的数据
+		// [0,endi] 插入 endi+gap [0, endi+gap]有序  -- 间隔为gap的数据
 		for (int i = 0; i < n - gap; ++i)
 		{
-			int endIndex = i;
-			int tmp = a[endIndex + gap];
+			int endi = i;
+			int tmp = a[endi + gap];
 
-			while (endIndex >= 0)
+			while (endi >= 0)
 			{
-				if (a[endIndex] > tmp)
+				if (a[endi] > tmp)
 				{
-					a[endIndex + gap] = a[endIndex];
-					endIndex -= gap;
+					a[endi + gap] = a[endi];
+					endi -= gap;
 				}
 				else
 				{
@@ -56,7 +56,7 @@ void ShellSort(int* a, int n)
 				}
 			}
 
-			a[endIndex + gap] = tmp;
+			a[endi + gap] = tmp;
 		}
 	}
 }
