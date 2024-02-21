@@ -12,7 +12,7 @@ void InsertSort(int* a, int n)
         int tmp = a[endi + 1];
         while(endi >=0)
         {
-            if (tmp < a[endi])
+            if (a[endi] > tmp)
             {
                 a[endi + 1] = a[endi];
                 --endi;
