@@ -42,6 +42,55 @@ void SelectSort(int* a, int n)
 	}
 }
 
+void AdjustDown(int* a, int n, int parent)
+{
+    assert(a);
+
+	int minChild = parent * 2 + 1;
+	while (minChild < n)
+	{
+		// 找出小的那个孩子
+		if (minChild + 1 < n && a[minChild + 1] > a[minChild])
+		{
+			minChild++;
+		}
+
+		if (a[minChild] > a[parent])
+		{
+			Swap(&a[minChild], &a[parent]);
+			parent = minChild;
+			minChild = parent * 2 + 1;
+		}
+		else
+		{
+			break;
+		}
+	}
+}
+
+// O(N*logN)
+void HeapSort(int* a, int n)
+{
+    assert(a);
+
+	// 升序 -- 大堆
+	// 降序 -- 小堆
+	// 建堆 -- 向下调整建堆 - O(N)
+	for (int i = (n - 1 - 1) / 2; i >= 0; --i)
+	{
+		AdjustDown(a, n, i);
+	}
+
+	// 选数 N*logN
+	int i = 1;
+	while (i < n)
+	{
+		Swap(&a[0], &a[n - i]);
+		AdjustDown(a, n - i, 0);
+		++i;
+	}
+}
+
 void Print(int* a, int size)
 {
     assert(a);
