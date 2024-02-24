@@ -30,6 +30,81 @@ void BubbleSort(int* a, int n)
 	}
 }
 
+int GetMidIndex(int* a, int left, int right)
+{
+	int mid = left + (right - left) / 2;
+	if (a[left] < a[mid])
+	{
+		if (a[mid] < a[right])
+			return mid;
+		else if (a[left] > a[right])
+			return left;
+		else
+			return right;
+	}
+	else // a[left] >= a[mid]
+	{
+		if (a[mid] > a[right])
+			return mid;
+		else if (a[left] < a[right])
+			return left;
+		else
+			return right;
+	}
+}
+
+// [left, right] -- O(N)
+// hoare
+int PartSort(int* a, int left, int right)
+{
+    assert(a);
+
+	// 三数取中
+	int mid = GetMidIndex(a, left, right);
+	Swap(&a[left], &a[mid]);
+
+	int keyi = left;  // 取左边做key，先让right走
+	while (left < right)
+	{
+		// right找小
+		while (left < right && a[right] >= a[keyi])
+		{
+			--right;
+		}
+
+		// left找大
+		while (left < right && a[left] <= a[keyi])
+		{
+			++left;
+		}
+
+		if (left < right)
+			Swap(&a[left], &a[right]);
+	}
+
+	int meeti = left;
+
+	Swap(&a[meeti], &a[keyi]);
+
+	return meeti;
+}
+
+// [left, right] 闭区间
+// O(N*logN)~O(N^2)
+// 使用三数取中O(N*logN)
+void QuickSort(int* a, int left, int right)
+{
+    assert(a);
+
+    if (left < right)
+    {
+        int keyi = PartSort(a, left, right);
+        //[left, keyi-1] keyi [keyi+1, right]
+        QuickSort(a, left, keyi - 1);
+        QuickSort(a, keyi + 1, right);
+    }
+}
+
 void Print(int* a, int n)
 {
     assert(a);
