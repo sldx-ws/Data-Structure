@@ -54,8 +54,8 @@ int GetMidIndex(int* a, int left, int right)
 }
 
 // [left, right] -- O(N)
-// hoare
-int PartSort(int* a, int left, int right)
+// hoare（左右指针法）
+int PartSort1(int* a, int left, int right)
 {
     assert(a);
 
@@ -89,6 +89,40 @@ int PartSort(int* a, int left, int right)
 	return meeti;
 }
 
+// 挖坑法
+int PartSort2(int* a, int left, int right)
+{
+	// 三数取中
+	int mid = GetMidIndex(a, left, right);
+	Swap(&a[left], &a[mid]);
+
+	int key = a[left];
+	int hole = left;
+	while (left < right)
+	{
+		// 右边找小，填到左边坑
+		while (left < right && a[right] >= key)
+		{
+			--right;
+		}
+
+		a[hole] = a[right];
+		hole = right;
+
+		// 左边找大，填到右边坑
+		while (left < right && a[left] <= key)
+		{
+			++left;
+		}
+
+		a[hole] = a[left];
+		hole = left;
+	}
+
+	a[hole] = key;
+	return hole;
+}
+
 // [left, right] 闭区间
 // O(N*logN)~O(N^2)
 // 使用三数取中O(N*logN)
@@ -98,7 +132,7 @@ void QuickSort(int* a, int left, int right)
 
     if (left < right)
     {
-        int keyi = PartSort(a, left, right);
+        int keyi = PartSort2(a, left, right);
         //[left, keyi-1] keyi [keyi+1, right]
         QuickSort(a, left, keyi - 1);
         QuickSort(a, keyi + 1, right);
