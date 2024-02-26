@@ -123,6 +123,30 @@ int PartSort2(int* a, int left, int right)
 	return hole;
 }
 
+// 前后指针法
+int PartSort3(int* a, int left, int right)
+{
+	// 三数取中
+	int mid = GetMidIndex(a, left, right);
+	Swap(&a[left], &a[mid]);
+
+	int keyi = left;
+	int prev = left;
+	int cur = left + 1;
+	while (cur <= right)
+	{
+		// 找小
+		if (a[cur] < a[keyi] && ++prev != cur)
+			Swap(&a[cur], &a[prev]);
+
+		++cur;
+	}
+
+	Swap(&a[keyi], &a[prev]);
+
+	return prev;
+}
+
 // [left, right] 闭区间
 // O(N*logN)~O(N^2)
 // 使用三数取中O(N*logN)
@@ -132,7 +156,7 @@ void QuickSort(int* a, int left, int right)
 
     if (left < right)
     {
-        int keyi = PartSort2(a, left, right);
+        int keyi = PartSort3(a, left, right);
         //[left, keyi-1] keyi [keyi+1, right]
         QuickSort(a, left, keyi - 1);
         QuickSort(a, keyi + 1, right);
