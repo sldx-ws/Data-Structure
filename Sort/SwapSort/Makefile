@@ -1,4 +1,4 @@
-Sort:Sort.c test.c
+Sort:Sort.c test.c Stack.c
 	gcc -o $@ $^ -g -std=c11
 
 .PHONY:clean

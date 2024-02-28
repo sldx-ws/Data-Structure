@@ -163,6 +163,40 @@ void QuickSort(int* a, int left, int right)
     }
 }
 
+void QuickSortNonR(int* a, int begin, int end)
+{
+	Stack st;
+	StackInit(&st);
+	StackPush(&st, begin);
+	StackPush(&st, end);
+
+	while (!StackEmpty(&st))
+	{
+		int right = StackTop(&st);
+		StackPop(&st);
+
+		int left = StackTop(&st);
+		StackPop(&st);
+
+		int keyi = PartSort3(a, left, right);
+		// [left, keyi-1] keyi [keyi+1,right]
+
+		if (keyi + 1 < right)
+		{
+			StackPush(&st, keyi + 1);
+			StackPush(&st, right);
+		}
+	
+		if (left < keyi - 1)
+		{
+			StackPush(&st, left);
+			StackPush(&st, keyi - 1);
+		}
+	}
+
+	StackDestroy(&st);
+}
+
 void Print(int* a, int n)
 {
     assert(a);
