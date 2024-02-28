@@ -15,7 +15,7 @@ typedef struct Stack
 
 // 初始化和销毁
 void StackInit(Stack* pst);
-void StackDestory(Stack* pst);
+void StackDestroy(Stack* pst);
 
 // 出栈入栈
 void StackPush(Stack* pst, STDataType x);

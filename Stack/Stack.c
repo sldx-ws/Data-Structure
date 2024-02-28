@@ -16,7 +16,7 @@ void StackInit(Stack* pst)
     pst->_capacity = 4;
 }
 
-void StackDestory(Stack* pst)
+void StackDestroy(Stack* pst)
 {
     assert(pst);
 

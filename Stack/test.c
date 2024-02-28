@@ -23,6 +23,7 @@ void test()
     printf("栈的大小；");
     printf("%zd\n", StackSize(&stack));
     
+    StackDestroy(&stack);
 
 }
 
