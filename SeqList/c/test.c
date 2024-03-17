@@ -29,11 +29,11 @@ void TestSeqListPushPop()
     SeqListPopFront(&s);
     Print(&s);
 
-    printf("第3个位置插入10：");
+    printf("下标为2的位置插入10：");
     SeqListInsert(&s, 2, 10);
     Print(&s);
 
-    printf("删除第4个元素：");
+    printf("删除下标为3元素：");
     SeqListErase(&s, 3);
     Print(&s);
 

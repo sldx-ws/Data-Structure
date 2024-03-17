@@ -104,17 +104,17 @@ void SeqListInsert(SeqList* psl, int pos, SLDataType x)
     // 若形参pos的类型为size_t，则不用判断 >= 0
     assert(pos >= 0 && pos <= psl->_size);
 
-    ++psl->_size;
     SeqListCheckCapacity(psl);
 
     int end = psl->_size - 1;
     while (end > pos)
     {
-        psl->_a[end] = psl->_a[end - 1];
+        psl->_a[end + 1] = psl->_a[end];
         --end;
     }
 
     psl->_a[pos] = x;
+    ++psl->_size;
 }
 
 void SeqListErase(SeqList* psl, int pos)
