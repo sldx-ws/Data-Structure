@@ -21,9 +21,9 @@ void test01()
 
 void test02()
 {
-    string s1("hello");
-    string s2(s1);
-    string s3;
+    my_tiny_stl::string s1("hello");
+    my_tiny_stl::string s2(s1);
+    my_tiny_stl::string s3;
     s3 = s1;
 
     cout << s1.c_str() << endl;
