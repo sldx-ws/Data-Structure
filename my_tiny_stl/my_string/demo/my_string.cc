@@ -37,7 +37,7 @@ size_t string::size()
     return strlen(_str);
 }
 
-const char* string::c_str()
+const char* string::c_str() const
 {
     return _str;
 }

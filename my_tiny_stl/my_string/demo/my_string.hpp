@@ -14,7 +14,7 @@ public:
     string(const string& s);
     ~string();
     size_t size();
-    const char* c_str();
+    const char* c_str() const;
 
     char& operator[](size_t i);
     string& operator=(const string& s);
