@@ -1,4 +1,4 @@
-void InsertionSort(vector<int>& v)
+void insertionSort(vector<int>& v)
 {
     int n = v.size();
     for (int i = 1; i < n; ++i)
