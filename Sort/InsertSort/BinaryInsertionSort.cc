@@ -17,7 +17,8 @@ int binarySearch(const vector<int>& v, int key, int low, int high)
 
 void binaryInsertionSort(vector<int>& v)
 {
-    for (int i = 1; i < v.size(); ++i)
+    int n = v.size();
+    for (int i = 1; i < n; ++i)
     {
         int key = v[i];
         int j = i - 1;
