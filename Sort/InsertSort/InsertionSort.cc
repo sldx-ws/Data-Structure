@@ -5,7 +5,7 @@ void insertionSort(vector<int>& v)
     {
         int key = v[i];
         int j = i - 1;
-        while (j >=0 && v[j] > key)
+        while (j >= 0 && v[j] > key)
         {
             v[j + 1] = v[j];
             --j;
