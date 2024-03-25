@@ -1,7 +1,6 @@
 int binarySearch(const vector<int>& v, int key, int low, int high)
 {
-    while (low <= high)
-    {
+    while (low <= high) {
         int mid = low + (high - low) / 2;
 
         if (v[mid] < key)
@@ -18,14 +17,12 @@ int binarySearch(const vector<int>& v, int key, int low, int high)
 void binaryInsertionSort(vector<int>& v)
 {
     int n = v.size();
-    for (int i = 1; i < n; ++i)
-    {
+    for (int i = 1; i < n; ++i) {
         int key = v[i];
         int j = i - 1;
         int insertIndex = binarySearch(v, key, 0, j);
 
-        while (j >= insertIndex)
-        {
+        while (j >= insertIndex) {
             v[j + 1] = v[j];
             --j;
         }
