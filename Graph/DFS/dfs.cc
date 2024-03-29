@@ -15,10 +15,10 @@ void dfs(int node) {
     cout << "访问节点: " << node << endl;
 
     // 遍历当前节点的邻居节点
-    for (int neighbor : graph[node]) {
+    for (const auto& e : graph[node]) {
         // 如果邻居节点未被访问过，则递归访问它
-        if (!visited[neighbor]) {
-            dfs(neighbor);
+        if (!visited[e]) {
+            dfs(e);
         }
     }
 }
