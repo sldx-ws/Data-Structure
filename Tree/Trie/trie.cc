@@ -19,38 +19,37 @@ public:
         root = new TrieNode();
     }
 
-    // 插入
     void insert(string word) {
-        TrieNode* current = root;
-        for (char c : word) {
-            if (current->children.find(c) == current->children.end())
-                current->children[c] = new TrieNode();
+        TrieNode* cur = root;
+        for (auto& ch : word) {
+            if (cur->children.find(ch) == cur->children.end())
+                cur->children[ch] = new TrieNode();
 
-            current = current->children[c];
+            cur = cur->children[ch];
         }
-        current->isEndOfWord = true;
+        cur->isEndOfWord = true;
     }
 
     // 检查一个单词是否在 Trie 中
     bool search(string word) {
-        TrieNode* current = root;
-        for (char c : word) {
-            if (current->children.find(c) == current->children.end()) 
+        TrieNode* cur = root;
+        for (auto& ch : word) {
+            if (cur->children.find(ch) == cur->children.end()) 
                 return false;
 
-            current = current->children[c];
+            cur = cur->children[ch];
         }
-        return current->isEndOfWord;
+        return cur->isEndOfWord;
     }
 
     // 检查一个前缀是否在 Trie 中
     bool startsWith(string prefix) {
-        TrieNode* current = root;
-        for (char c : prefix) {
-            if (current->children.find(c) == current->children.end()) 
+        TrieNode* cur = root;
+        for (auto& ch : prefix) {
+            if (cur->children.find(ch) == cur->children.end()) 
                 return false;
 
-            current = current->children[c];
+            cur = cur->children[ch];
         }
         return true;
     }
