@@ -6,56 +6,56 @@ using namespace std;
 
 struct TrieNode {
     TrieNode() {
-        isEndOfWord = false;
+        _isEndOfWord = false;
     }
 
-    unordered_map<char, TrieNode*> child;
-    bool isEndOfWord;
+    unordered_map<char, TrieNode*> _child;
+    bool _isEndOfWord;
 };
 
 class Trie {
 public:
     Trie() {
-        root = new TrieNode();
+        _root = new TrieNode();
     }
 
     void insert(string word) {
-        TrieNode* cur = root;
+        TrieNode* cur = _root;
         for (auto& ch : word) {
-            if (cur->child.find(ch) == cur->child.end())
-                cur->child[ch] = new TrieNode();
+            if (cur->_child.find(ch) == cur->_child.end())
+                cur->_child[ch] = new TrieNode();
 
-            cur = cur->child[ch];
+            cur = cur->_child[ch];
         }
-        cur->isEndOfWord = true;
+        cur->_isEndOfWord = true;
     }
 
     // 检查一个单词是否在 Trie 中
     bool search(string word) {
-        TrieNode* cur = root;
+        TrieNode* cur = _root;
         for (auto& ch : word) {
-            if (cur->child.find(ch) == cur->child.end()) 
+            if (cur->_child.find(ch) == cur->_child.end()) 
                 return false;
 
-            cur = cur->child[ch];
+            cur = cur->_child[ch];
         }
-        return cur->isEndOfWord;
+        return cur->_isEndOfWord;
     }
 
     // 检查一个前缀是否在 Trie 中
     bool startsWith(string prefix) {
-        TrieNode* cur = root;
+        TrieNode* cur = _root;
         for (auto& ch : prefix) {
-            if (cur->child.find(ch) == cur->child.end()) 
+            if (cur->_child.find(ch) == cur->_child.end()) 
                 return false;
 
-            cur = cur->child[ch];
+            cur = cur->_child[ch];
         }
         return true;
     }
 
 private:
-    TrieNode* root;
+    TrieNode* _root;
 };
 
 int main() {
