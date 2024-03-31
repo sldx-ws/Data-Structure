@@ -9,7 +9,7 @@ struct TrieNode {
         isEndOfWord = false;
     }
 
-    unordered_map<char, TrieNode*> children;
+    unordered_map<char, TrieNode*> child;
     bool isEndOfWord;
 };
 
@@ -22,10 +22,10 @@ public:
     void insert(string word) {
         TrieNode* cur = root;
         for (auto& ch : word) {
-            if (cur->children.find(ch) == cur->children.end())
-                cur->children[ch] = new TrieNode();
+            if (cur->child.find(ch) == cur->child.end())
+                cur->child[ch] = new TrieNode();
 
-            cur = cur->children[ch];
+            cur = cur->child[ch];
         }
         cur->isEndOfWord = true;
     }
@@ -34,10 +34,10 @@ public:
     bool search(string word) {
         TrieNode* cur = root;
         for (auto& ch : word) {
-            if (cur->children.find(ch) == cur->children.end()) 
+            if (cur->child.find(ch) == cur->child.end()) 
                 return false;
 
-            cur = cur->children[ch];
+            cur = cur->child[ch];
         }
         return cur->isEndOfWord;
     }
@@ -46,10 +46,10 @@ public:
     bool startsWith(string prefix) {
         TrieNode* cur = root;
         for (auto& ch : prefix) {
-            if (cur->children.find(ch) == cur->children.end()) 
+            if (cur->child.find(ch) == cur->child.end()) 
                 return false;
 
-            cur = cur->children[ch];
+            cur = cur->child[ch];
         }
         return true;
     }
