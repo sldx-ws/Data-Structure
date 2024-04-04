@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <vector>
 using namespace std;
 
 int bf(string str, string sub) {
@@ -8,7 +7,7 @@ int bf(string str, string sub) {
     int m = sub.length();
 
     for (int i = 0; i <= n - m; ++i) {
-        int j = 0;
+        int j = 0; 
         for (; j < m; ++j) {
             if (str[i + j] != sub[j])
                 break;
