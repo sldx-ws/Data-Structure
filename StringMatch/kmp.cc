@@ -12,7 +12,7 @@ vector<int> getNext(const string& sub) {
             j = next[j - 1];
  
         if (sub[i] == sub[j])
-            j++;
+            ++j;
 
         next[i] = j;
     }
@@ -30,8 +30,8 @@ vector<int> kmp(const string& str, const string& sub) {
     int j = 0; // sub 的指针
     while (i < n) {
         if (sub[j] == str[i]) {
-            i++;
-            j++;
+            ++i;
+            ++j;
         }
         
         if (j == m) {
@@ -41,7 +41,7 @@ vector<int> kmp(const string& str, const string& sub) {
             if (j != 0)
                 j = next[j - 1];
             else
-                i += 1;
+                ++i;
         }
     }
 
