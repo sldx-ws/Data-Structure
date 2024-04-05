@@ -25,6 +25,7 @@ vector<int> kmp(const string& str, const string& sub) {
     int n = str.length();
     int m = sub.length();
     vector<int> next = getNext(sub);
+    
     int i = 0; // str 的指针
     int j = 0; // sub 的指针
     while (i < n) {
