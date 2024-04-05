@@ -20,7 +20,7 @@ vector<int> getNext(const string& sub) {
     return next;
 }
 
-vector<int> kmp(const string& str, const string& sub) {
+int kmp(const string& str, const string& sub) {
     vector<int> ret;
     int n = str.length();
     int m = sub.length();
@@ -35,8 +35,7 @@ vector<int> kmp(const string& str, const string& sub) {
         }
         
         if (j == m) {
-            ret.push_back(i - j);
-            j = next[j - 1]; 
+            return i - j;
         } else if (i < n && sub[j] != str[i]) {
             if (j != 0)
                 j = next[j - 1];
@@ -45,18 +44,14 @@ vector<int> kmp(const string& str, const string& sub) {
         }
     }
 
-    return ret;
+    return -1;
 }
 
 int main() {
     string sub, str;
     cin >> str >> sub ;
 
-    vector<int> positions = kmp(str, sub);
-
-    for (auto& e : positions)
-        cout << e << " ";
+    cout << kmp(str, sub) << endl;
     
-    cout << endl;
     return 0;
 }
