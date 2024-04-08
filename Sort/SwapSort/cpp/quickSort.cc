@@ -1,5 +1,4 @@
-void quickSort(vector<int>& v, int low, int high) 
-{
+void quickSort(vector<int>& v, int low, int high) {
     if (low < high) {
         int i = low;
         int j = high;
