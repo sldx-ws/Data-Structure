@@ -4,7 +4,7 @@
 #include <string>
 using namespace std;
 
-template<typename K, typename V>
+template<class K, class V>
 struct HashNode {
     K key;
     V value;
@@ -13,7 +13,7 @@ struct HashNode {
     HashNode(const K& key, const V& value) : key(key), value(value), next(nullptr) {}
 };
 
-template<typename K, typename V>
+template<class K, class V>
 class HashMap {
 public:
     HashMap(int capacity) : capacity(capacity), size(0) {
@@ -26,7 +26,7 @@ public:
     int getSize();
 
 private:
-    std::vector<HashNode<K, V>*> table;
+    vector<HashNode<K, V>*> table;
     int capacity;
     int size;
 

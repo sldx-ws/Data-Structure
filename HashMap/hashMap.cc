@@ -1,6 +1,6 @@
 #include "hashMap.hpp"
 
-template<typename K, typename V>
+template<class K, class V>
 void HashMap<K, V>::insert(const K& key, const V& value) {
     int index = hashFunction(key);
     HashNode<K, V>* newNode = new HashNode<K, V>(key, value);
@@ -10,53 +10,53 @@ void HashMap<K, V>::insert(const K& key, const V& value) {
         table[index] = newNode;
     } else {
         // 非空
-        HashNode<K, V>* current = table[index];
-        while (current->next != nullptr) {
-            current = current->next;
+        HashNode<K, V>* cur = table[index];
+        while (cur->next != nullptr) {
+            cur = cur->next;
         }
-        current->next = newNode;
+        cur->next = newNode;
     }
     ++size;
 }
 
-template<typename K, typename V>
+template<class K, class V>
 V HashMap<K, V>::find(const K& key) {
     int index = hashFunction(key);
-    HashNode<K, V>* current = table[index];
-    while (current != nullptr) {
-        if (current->key == key) {
-            return current->value;
+    HashNode<K, V>* cur = table[index];
+    while (cur != nullptr) {
+        if (cur->key == key) {
+            return cur->value;
         }
-        current = current->next;
+        cur = cur->next;
     }
     // 如果没有找到，则返回默认值
     return V();
 }
 
-template<typename K, typename V>
+template<class K, class V>
 void HashMap<K, V>::remove(const K& key) {
     int index = hashFunction(key);
-    HashNode<K, V>* current = table[index];
+    HashNode<K, V>* cur = table[index];
     HashNode<K, V>* prev = nullptr;
 
-    while (current != nullptr) {
-        if (current->key == key) {
+    while (cur != nullptr) {
+        if (cur->key == key) {
             // 如果要删除的节点是链表的第一个节点
             if (prev == nullptr) {
-                table[index] = current->next;
+                table[index] = cur->next;
             } else {
-                prev->next = current->next;
+                prev->next = cur->next;
             }
-            delete current;
+            delete cur;
             --size;
             return;
         }
-        prev = current;
-        current = current->next;
+        prev = cur;
+        cur = cur->next;
     }
 }
 
-template<typename K, typename V>
+template<class K, class V>
 int HashMap<K, V>::getSize() {
     return size;
 }
