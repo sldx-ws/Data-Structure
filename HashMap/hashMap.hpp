@@ -33,6 +33,6 @@ private:
     // 哈希函数
     int hashFunction(const K& key) {
         // 这里简单地使用取模运算作为哈希函数
-        return std::hash<K>()(key) % capacity;
+        return hash<K>()(key) % capacity;
     }
 };
