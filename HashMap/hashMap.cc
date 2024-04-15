@@ -11,9 +11,9 @@ void HashMap<K, V>::insert(const K& key, const V& value) {
     } else {
         // 非空
         HashNode<K, V>* cur = table[index];
-        while (cur->next != nullptr) {
+        while (cur->next != nullptr) 
             cur = cur->next;
-        }
+        
         cur->next = newNode;
     }
     ++size;
@@ -24,9 +24,9 @@ V HashMap<K, V>::find(const K& key) {
     int index = hashFunction(key);
     HashNode<K, V>* cur = table[index];
     while (cur != nullptr) {
-        if (cur->key == key) {
+        if (cur->key == key) 
             return cur->value;
-        }
+        
         cur = cur->next;
     }
     // 如果没有找到，则返回默认值
@@ -42,11 +42,11 @@ void HashMap<K, V>::remove(const K& key) {
     while (cur != nullptr) {
         if (cur->key == key) {
             // 如果要删除的节点是链表的第一个节点
-            if (prev == nullptr) {
+            if (prev == nullptr) 
                 table[index] = cur->next;
-            } else {
+            else 
                 prev->next = cur->next;
-            }
+            
             delete cur;
             --size;
             return;
