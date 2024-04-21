@@ -1,14 +1,12 @@
 #include "BinarySearch.h"
 
-int BinarySearch(int* a, int n, int key)
-{
+int BinarySearch(int* a, int n, int key) {
     assert(a);
 
     int left = 0;
     int right = n - 1;
 
-    while (left <= right)
-    {
+    while (left <= right) {
         //int mid = (left + right) / 2;  // 有整型溢出风险
         int mid = left + (right - left) / 2;
 
