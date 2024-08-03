@@ -58,8 +58,6 @@ const char& string::operator[](size_t i) const
     return _str[i];
 }
 
-istream& operator>>(istream& in, string& s) {}
-
 ostream& operator<<(ostream& os, const string& s)
 {
     // 这种方法不需要定义为友元函数
