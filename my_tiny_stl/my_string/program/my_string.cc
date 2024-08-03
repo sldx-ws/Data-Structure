@@ -1,4 +1,4 @@
-#include "my_string.hpp"
+#include "my_string.h"
 
 namespace my_tiny_stl 
 {
