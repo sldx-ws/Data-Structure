@@ -309,7 +309,13 @@ template <class InputIterator, class T>
 
 # 10、Non-member function overloads
 
-## 10.1 std::swap(string)
+## 10.1 std::string::swap
+
+```cc
+void swap (string& str); // 所有内容都换了
+```
+
+### 10.1.1 std::swap(string)
 
 ```cc
 void swap (string& x, string& y); // 所有内容都换了
