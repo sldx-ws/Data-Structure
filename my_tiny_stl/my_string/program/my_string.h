@@ -11,8 +11,6 @@ class string
 public:
     typedef char* iterator;
 
-    //string();
-    //string(const char* str);
     string(const char* str = "");
     string(const string& s);
     ~string();
@@ -57,5 +55,6 @@ private:
     static const size_t npos;
 };
 
-ostream& operator<<(ostream& out, const string& s);
+istream& operator>>(istream& in, string& s) {}
+ostream& operator<<(ostream& os, const string& s);
 }  // end of namespace my_tiny_stl

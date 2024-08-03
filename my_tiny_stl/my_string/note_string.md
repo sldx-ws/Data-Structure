@@ -430,7 +430,15 @@ windows下gbk(gb2312)
 
 # 14、模拟实现
 
-# 14.1 strlen()
+## 14.1 成员变量_str
+
+```cc
+char * _str; // 要在堆上开空间
+```
+
+## 14.2 复习C语言字符串函数
+
+### 14.2.1 strlen()
 
 ```c
 #include <string.h>
@@ -441,7 +449,113 @@ size_t strlen(const char *s);
 - **`strlen(nullptr)`因为空指针解引用出错**
   - **`strlen("") `可以**，相当于对空字符串解引用，得到`'\0'`
 
-## 14.2 返回引用问题
+### 14.2.2 strcpy() 和 strncpy()
+
+```c
+#include <string.h>
+
+char *strcpy(char *dest, const char *src);
+char *strncpy(char *dest, const char *src, size_t n); // n表示字节个数
+// 返回参数dest
+// 拷贝\0及其前面的字符
+```
+
+```c
+// strcpy问题
+// 1、
+char a1[] = "a";
+char a2[] = "bc";
+strcpy(a1, a2); // 错误，a1空间不够
+//2、
+char* p = "abc";
+char arr[] = "def";
+strcpy(p, arr); // 错误，目标区域不可修改
+```
+
+```c
+// strncpy问题
+char a1[20] = "abcdefg"; // 后面的全是\0
+char a2[] = "str";
+strncpy(a1, a2, 5); // 拷贝3个字符过去，剩下2个用\0填充
+```
+
+### 14.2.3 strcat() 和 strncat()
+
+```c
+#include <string.h>
+
+char *strcat(char *dest, const char *src);
+char *strncat(char *dest, const char *src, size_t n); // n表示字节数
+// 返回第一个参数
+
+// 从\0追加，最后末尾自动加\0
+```
+
+```c
+// strcat用法
+// char a[] = "hello"; // 错误，空间不够了
+char a[20] = "hello"
+strcat(a, "world");
+
+// 源字符串必须要有\0
+// 不能自己给自己追加，会死循环
+```
+
+```c
+// strncat 用法
+char a[20] = "hello\0xxxx";
+strncat(a, "world", 3); // a: hellowor\0xx
+```
+
+### 14.2.4 strcmp() 和 strncmp()
+
+```c
+#include <string.h>
+
+int strcmp(const char *s1, const char *s2);
+int strncmp(const char *s1, const char *s2, size_t n); // n表示字节数
+// 返回值：一些编译器返回的是ascii值相减，但并不全是，cmake返回0 -1 1
+// strncmp的n：s1和s2的前n个字节比较。不是s2的前n个和s1的全部比
+```
+
+## 14.3 无参和有参
+
+```cc
+//写法一：无参和有参分开写
+class string
+{
+public:
+    string()
+    {
+        _size = _capacity = 0;
+        _str = new char[1];
+		_str[0] = '\0';
+	}
+    
+    string(const char* str)
+    {
+        _size = strlen(str);
+        _capacity = _size;
+        _str = new char[_size + 1];
+        strcpy(_str, str);
+    }
+};
+
+// 写法二：全缺省默认构造函数
+class string
+{
+public:
+    string(cosnt char* str = "")
+    {
+        _size = strlen(str);
+        _capacity = _size;
+        _str = new char[_size + 1];
+        strcpy(_str, str);
+    }
+};
+```
+
+## 14.4 返回引用问题
 
 ```cc
 char& string::operator[](size_t i)
@@ -451,7 +565,7 @@ char& string::operator[](size_t i)
 // 为什么可以返回引用? 因为_str的构造函数都是在堆上开空间
 ```
 
-## 14.3 防止自己给自己赋值问题
+## 14.5 防止自己给自己赋值问题
 
 ```cc
 string& string::operator=(const string& s)
@@ -463,3 +577,59 @@ string& string::operator=(const string& s)
     }
 }
 ```
+
+## 14.6 深拷贝的传统写法和现代写法
+
+- 假如`my_string`的成员变量只有`char* _str;`
+
+```cc
+// 传统写法
+ws::string::string(const ws::string& s)
+    : _str(new char[_capacity + 1])
+{
+    strcpy(_str, s._str);
+}
+
+
+ws::string::string& operator=(const ws::string& s)
+{
+    if (this != &s)
+    {
+		char* tmp = new char[strlen(s._str)+ 1];
+        strcpy(tmp, s._str);
+        delete[] _str;
+        _str = tmp;
+    }
+    
+    return *this;
+}
+```
+
+```cc
+// 现代写法
+ws::string::string(const ws::string& s)
+    : _str(nullptr)  // 不置空，析构一个野指针报错
+{
+    ws::string tmp(s._str);
+    swap(_str, tmp._str);
+}
+
+
+ws::string::string& operator=(const ws::string& s)
+{
+    if (this != &s)
+    {
+        ws::string tmp(s);
+        swap(_str, tmp._str);
+    }
+    
+    return *this;
+}
+
+ws::string::string& operator=(ws::string s)
+{
+    swap(_str, s._str);
+    return *this;
+}
+```
+

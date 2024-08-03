@@ -6,7 +6,7 @@ const size_t string::npos = -1;
 
 string::string(const char* str)  // 缺省参数在声明给过了
 {
-    _size = strlen(str);
+    _size = strlen(str); // strlen(NULL)会报错，strlen("")不会
     _capacity = _size;
     _str = new char[strlen(str) + 1];  // 多一个给 '\0'
     strcpy(_str, str);
@@ -58,20 +58,17 @@ const char& string::operator[](size_t i) const
     return _str[i];
 }
 
-istream& operator>>(istream& in, string& s)
-{
-    
-}
+istream& operator>>(istream& in, string& s) {}
 
-ostream& operator<<(ostream& out, const string& s)
+ostream& operator<<(ostream& os, const string& s)
 {
     // 这种方法不需要定义为友元函数
     for (size_t i = 0; i < s.size(); ++i)  
     {
-        out << s[i];
+        os << s[i];
     }
 
-    return out;
+    return os;
 }
 
 string& string::operator=(const string& s)
@@ -198,25 +195,6 @@ string& string::insert(size_t pos, char ch)
     return *this;
 }
 
-void string::erase(size_t pos, size_t len)
-{
-    if (len >= _size - pos)
-    {
-        _str[pos] = '\0';
-        _size = pos;
-    }
-    else
-    {
-        size_t i = pos + len;
-        for (size_t i = pos + len; i <= _size; ++i)
-        {
-            _str[i - len] = _str[i];           
-        }
-
-        _size -= len;
-    }
-}
-
 string& string::insert(size_t pos, const char* str)
 {
     assert(pos <= _size); 
@@ -240,4 +218,24 @@ string& string::insert(size_t pos, const char* str)
 
     return *this;
 }
+
+void string::erase(size_t pos, size_t len)
+{
+    if (len >= _size - pos)
+    {
+        _str[pos] = '\0';
+        _size = pos;
+    }
+    else
+    {
+        size_t i = pos + len;
+        for (size_t i = pos + len; i <= _size; ++i)
+        {
+            _str[i - len] = _str[i];           
+        }
+
+        _size -= len;
+    }
+}
+
 }  // end of namespace my_tiny_stl 
