@@ -22,7 +22,7 @@ void test()
     HeapDestory(&hp);
 }
 
-void testHeapSort()
+void test_sort()
 {
     HPDataType a[] = {3, 5, 6, 7, 2, 9};
     int size = sizeof(a) / sizeof(a[0]);

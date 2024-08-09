@@ -6,7 +6,6 @@
 #include <string.h>
 
 typedef int HPDataType;
-
 typedef struct Heap 
 {
     HPDataType* _a;
@@ -14,18 +13,10 @@ typedef struct Heap
     int _capacity; 
 } Heap;
 
-// init destory
-void HeapInit(Heap* php, HPDataType* a, int n);
-void HeapDestory(Heap* php);
-
-// push pop
-void HeapPush(Heap* php, HPDataType x);
-void HeapPop(Heap* php);
-
-// Top
-HPDataType HeapTop(Heap* php);
-
-void Print(Heap* php);
-
-// heap sort
+void HeapInit(Heap* ph, HPDataType* a, int n);
+void HeapDestory(Heap* ph);
+void HeapPush(Heap* ph, HPDataType x);
+void HeapPop(Heap* ph);
+HPDataType HeapTop(Heap* ph);
 void HeapSort(int* a, int n);
+void Print(Heap* ph);
