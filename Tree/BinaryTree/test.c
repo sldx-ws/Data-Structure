@@ -15,7 +15,7 @@ BTNode* CreateBinaryTree()
     return A;
 }
 
-int main()
+void test01()
 {
     BTNode* root = CreateBinaryTree();
     // PreOrder(root);
@@ -26,6 +26,23 @@ int main()
 
     int leaf = LeafSize(root);
     printf("LeafSize: %d\n", leaf);
+}
+
+void test02()
+{
+    BTNode* root = CreateBinaryTree();
+    
+    int n = TreeLevelKsize(root, 2);
+    printf("level2: %d\n", n);
+
+    BTNode* ret = Find(root, 'B');
+    printf("findB: %c\n", ret->_data);
+}
+
+int main()
+{
+    // test01();
+    test02();
 
     return 0;
 }

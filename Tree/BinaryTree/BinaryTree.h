@@ -12,7 +12,7 @@ typedef struct BTNode
 } BTNode;
 
 BTNode* CreateNode(int x);
-void DestoryTree(BTNode* root);
+void DestroyTree(BTNode* root);
 void PreOrder(BTNode* root);
 void InOrder(BTNode* root);
 void PostOrder(BTNode* root);

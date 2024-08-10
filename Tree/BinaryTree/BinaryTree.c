@@ -10,13 +10,13 @@ BTNode* CreateNode(int x)
     return node;
 }
 
-void DestoryTree(BTNode* root)
+void DestroyTree(BTNode* root)
 {
     if (root == NULL) return;
 
     // 后序销毁
-    Destory(root->_left);
-    Destory(root->_right);
+    DestroyTree(root->_left);
+    DestroyTree(root->_right);
     free(root);
 }
 
