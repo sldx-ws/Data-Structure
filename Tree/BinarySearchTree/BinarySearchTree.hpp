@@ -40,7 +40,7 @@ void BSTree<K>::Insert(const K& key)
         return;
     }
 
-    // double pointer or signal double
+    // double pointer (or signal double)
     Node* parent = nullptr;
     Node* cur = _root;
     while (cur)
