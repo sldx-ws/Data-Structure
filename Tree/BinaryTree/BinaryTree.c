@@ -33,6 +33,19 @@ void PreOrder(BTNode* root)
     PreOrder(root->_right);
 }
 
+void InOrder(BTNode* root)
+{
+    if (root == NULL)
+    {
+        printf("%s ", NULL);
+        return;
+    }    
+
+    InOrder(root->_left);
+    printf("%c ", root->_data);
+    InOrder(root->_right);
+}
+
 void PostOrder(BTNode* root)
 {
     if (root == NULL)
@@ -44,6 +57,32 @@ void PostOrder(BTNode* root)
     PostOrder(root->_left);
     PostOrder(root->_right);
     printf("%c ", root->_data);
+}
+
+void LevelOrder(BTNode* root)
+{
+    if (root == NULL) return ;
+
+    Queue q;
+    QueueInit(&q);
+
+    QueuePush(&q, root);
+    while (!QueueEmpty(&q))
+    {
+        BTNode* front = QueueFront(&q);
+        QueuePop(&q);
+
+        printf("%c ", front->_data);
+        
+        if (front->_left)
+            QueuePush(&q, front->_left);
+
+        if (front->_right)
+            QueuePush(&q, front->_right);
+    }
+
+    QueueDestroy(&q);
+    printf("\n");
 }
 
 int TreeSize(BTNode* root)
@@ -86,4 +125,40 @@ BTNode* Find(BTNode* root, BTDataType x)
     if (node) return node;
 
     return NULL;
+}
+
+bool isCompleteBinaryTree(BTNode* root)
+{
+    if (root == NULL)
+        return true;
+
+    Queue q;
+    QueueInit(&q);
+
+    QueuePush(&q, root);
+
+    while(!QueueEmpty(&q))
+    {
+        BTNode* front = QueueFront(&q);
+        QueuePop(&q);
+
+        if (front == NULL) break;
+
+        QueuePush(&q, front->_left);
+        QueuePush(&q, front->_right);
+    }
+
+    while(!QueueEmpty(&q))
+    {
+        BTNode* front = QueueFront(&q);
+        QueuePop(&q);
+
+        if (front)
+        {
+            QueueDestroy(&q);
+            return false;
+        }
+    }
+
+    return true;
 }
