@@ -4,7 +4,12 @@
 #include <assert.h>
 #include <stdlib.h>
 
-typedef int QDataType;
+#ifdef __BINARYTREE_H__
+    struct BTNode;  // 声明二叉树节点
+    typedef struct BTNode* QDataType;
+#else
+    typedef int QDataType;
+#endif
 
 typedef struct QueueNode
 {
@@ -18,20 +23,12 @@ typedef struct Queue
     QueueNode* _tail;
 } Queue;
 
-// init destory
 void QueueInit(Queue* pq);
-void QueueDestory(Queue* pq);
-
-// push pop
+void QueueDestroy(Queue* pq);
 void QueuePush(Queue* pq, QDataType x);
 void QueuePop(Queue* pq);
-
-// front back
 QDataType QueueFront(Queue* pq);
 QDataType QueueBack(Queue* pq);
-
-// empty size
 int QueueEmpty(Queue* pq);
 size_t QueueSize(Queue* pq);
-
 void Print(Queue* pq);

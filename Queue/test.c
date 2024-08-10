@@ -23,7 +23,7 @@ void test()
     printf("队列是否为空：%s\n", QueueEmpty(&q) == 1 ? "是" : "否");
     printf("队列的大小：%zd\n", QueueSize(&q));
 
-    QueueDestory(&q);
+    QueueDestroy(&q);
 }
 
 

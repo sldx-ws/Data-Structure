@@ -1,6 +1,5 @@
 #include "Queue.h"
 
-// init destory
 void QueueInit(Queue* pq)
 {
     assert(pq);
@@ -9,7 +8,7 @@ void QueueInit(Queue* pq)
     pq->_tail = NULL;
 }
 
-void QueueDestory(Queue* pq)
+void QueueDestroy(Queue* pq)
 {
     assert(pq);
 
@@ -26,17 +25,12 @@ void QueueDestory(Queue* pq)
     pq->_tail = NULL;
 }
 
-// push pop
 void QueuePush(Queue* pq, QDataType x)
 {
     assert(pq);
 
     QueueNode* newNode = (QueueNode*)malloc(sizeof(QueueNode));
-    if (newNode == NULL)
-    {
-        printf("申请内存失败\n");
-        exit(-1);
-    }
+    if (newNode == NULL) {}
 
     newNode->_data = x;
     newNode->_next = NULL;
@@ -51,8 +45,7 @@ void QueuePush(Queue* pq, QDataType x)
 
 void QueuePop(Queue* pq)
 {
-    assert(pq);
-    assert(pq->_head);
+    assert(pq && pq->_head);
 
     QueueNode* next = pq->_head->_next;
     free(pq->_head);
@@ -62,24 +55,20 @@ void QueuePop(Queue* pq)
         pq->_tail = NULL;
 }
 
-// front back
 QDataType QueueFront(Queue* pq)
 {
-    assert(pq);
-    assert(pq->_head);
+    assert(pq && pq->_head);
     
     return pq->_head->_data;
 }
 
 QDataType QueueBack(Queue* pq)
 {
-    assert(pq);
-    assert(pq->_head);
+    assert(pq && pq->_head);
 
     return pq->_tail->_data;
 }
 
-// empty size
 int QueueEmpty(Queue* pq)
 {
     assert(pq);
@@ -105,8 +94,6 @@ size_t QueueSize(Queue* pq)
 
 void Print(Queue* pq)
 {
-    assert(pq);
-
     QueueNode* cur = pq->_head;
     
     while (cur)
