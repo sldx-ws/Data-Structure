@@ -11,7 +11,7 @@ struct BSTreeNode
         : _key(key)
     {}
 
-    BSTreeNode<K>* _left = nullptr;
+    BSTreeNode<K>* _left  = nullptr;
     BSTreeNode<K>* _right = nullptr;
     K _key;
 };
