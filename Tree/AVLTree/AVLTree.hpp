@@ -1,9 +1,9 @@
 #pragma once
 
 #include <iostream>
-#include <ctime>
+#include <ctime>   // time
 #include <utility> // pair
-#include <cstdlib> // abs
+#include <cstdlib> // abs, srand, rand
 using namespace std;
 
 template <class K, class V>
