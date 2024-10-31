@@ -2,6 +2,8 @@
 #include <vector>
 #include <map>
 #include <cstddef>  // size_t
+#include <cstdlib>  // abs
+#include <algorithm>
 
 #if 0
 template<class T>
@@ -31,12 +33,21 @@ public:
         : _ufs(n, -1)
     {}
 
-    int FindRoot(int x)  // 可压缩路径
+    int FindRoot(int x)
     {
-        int parent = x;
-        while (_ufs[parent] >= 0) parent = _ufs[parent];
+        int root = x;
+        while (_ufs[root] >= 0) root = _ufs[root];
 
-        return parent; 
+        // 路径压缩
+        while (_ufs[x] >= 0)
+        {
+            int parent = _ufs[x];
+            _ufs[x] = root;
+
+            x = parent;
+        }
+
+        return root; 
     }
 
     void Union(int x1, int x2)
@@ -45,6 +56,9 @@ public:
         int root2 = FindRoot(x2);
 
         if (root1 == root2) return;
+
+        // 控制数量小的往大的合并
+        if (abs(_ufs[root1]) < abs(_ufs[root2])) swap(root1, root2);
 
         _ufs[root1] += _ufs[root2];
         _ufs[root2] = root1;
