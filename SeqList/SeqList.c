@@ -20,7 +20,7 @@ void SeqListInit(SeqList* psl)
     psl->_capacity = 4;
 }
 
-void SeqListDestory(SeqList* psl)
+void SeqListDestroy(SeqList* psl)
 {
     assert(psl->_a);
 
@@ -153,9 +153,7 @@ int SeqListFind(SeqList* psl, SLDataType x)
     for (int i = 0; i < psl->_size; ++i)
     {
         if (x == psl->_a[i])
-        {
             return i;
-        }
     }
 
     return -1;

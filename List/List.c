@@ -19,7 +19,7 @@ ListNode* ListInit2()
 }
 
 //释放
-void ListDestory(ListNode* phead)
+void ListDestroy(ListNode* phead)
 {
     assert(phead);
 
@@ -157,7 +157,6 @@ void ListErase(ListNode* pos)
     free(pos);
 }
 
-//打印
 void ListPrint(ListNode* phead)
 {
     assert(phead);

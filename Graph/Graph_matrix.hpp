@@ -8,33 +8,39 @@
 namespace matrix
 {
 
-using namespace std;
+using std::cout;
+using std::endl;
+using std::vector;
+using std::map;
+using std::queue;
+using std::invalid_argument;
+
+template <class W>
+struct Edge
+{
+	Edge(size_t srcIdx, size_t dstIdx, const W& w)
+		: _srcIdx(srcIdx)
+		, _dstIdx(dstIdx)
+		, _w(w)
+	{}
+	
+	bool operator>(const Edge& e) const
+	{
+		return _w > e._w;
+	}
+	
+	size_t _srcIdx;
+	size_t _dstIdx;
+	W _w;
+};
+
 
 template <class V, class W, W W_MAX = INT_MAX, bool Direction = false>
 class Graph
 {
 	typedef Graph<V, W, W_MAX, Direction> Self;
+	typedef matrix::Edge<W> Edge;
 public:
-	struct Edge
-	{
-		Edge(size_t srcIdx, size_t dstIdx, const W& w)
-			:_srcIdx(srcIdx)
-			, _dstIdx(dstIdx)
-			, _w(w)
-		{}
-		
-		bool operator>(const Edge& e) const
-		{
-			return _w > e._w;
-		}
-		
-		size_t _srcIdx;
-		size_t _dstIdx;
-		W _w;
-	};
-
-	Graph() = default;
-
 	Graph(const V* arr, size_t n)
 	{
 		_vertexes.reserve(n);
@@ -56,17 +62,11 @@ public:
 		size_t srcIdx = GetVertexIndex(src);
 		size_t dstIdx = GetVertexIndex(dst);
 
-		/*
 		_matrix[srcIdx][dstIdx] = w;
-		
+	
 		// 无向图
 		if (Direction == false)
-		{
 			_matrix[dstIdx][srcIdx] = w;
-		}
-		*/
-		
-		_AddEdge(srcIdx, dstIdx, w);
 	}
 		
 	size_t GetVertexIndex(const V& v)
@@ -90,7 +90,6 @@ public:
 	void Print();
 
 private:
-	void _AddEdge(size_t src, size_t dst, const W& w);
 	void _DFS(size_t srcIdx, vector<bool>& visited);
 
 private:
@@ -117,7 +116,6 @@ void Graph<V, W, W_MAX, Direction>::BFS(const V& src)
 	size_t n = _vertexes.size();
 	while (!q.empty())
 	{
-		// 一层一层出
 		for (int i  = 0; i < levelSize; ++i)
 		{
 			int front = q.front();
@@ -127,13 +125,10 @@ void Graph<V, W, W_MAX, Direction>::BFS(const V& src)
 			// 把顶点front的邻接顶点入队
 			for (size_t i = 0; i < n; ++i)
 			{
-				if (_matrix[front][i] != W_MAX)
+				if (_matrix[front][i] != W_MAX && visited[i] == false)
 				{
-					if (visited[i] == false)
-					{
 						q.push(i);
 						visited[i] = true;
-					}
 				}
 			}
 		}
@@ -167,21 +162,7 @@ void Graph<V, W, W_MAX, Direction>::_DFS(size_t srcIdx, vector<bool>& visited)
 	for (size_t i  =0; i < _vertexes.size(); ++i)
 	{
 		if (_matrix[srcIdx][i] != W_MAX && visited[i] == false)
-		{
 			_DFS(i, visited);
-		}
-	}
-}
-
-template<class V, class W, W W_MAX, bool Direction>
-void Graph<V, W, W_MAX, Direction>::_AddEdge(size_t srcIdx, size_t dstIdx, const W& w)
-{
-	_matrix[srcIdx][dstIdx] = w;
-	
-	// 无向图
-	if (Direction == false)
-	{
-		_matrix[dstIdx][srcIdx] = w;
 	}
 }
 

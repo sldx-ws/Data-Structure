@@ -17,7 +17,7 @@ void ListInit1(ListNode** pphead);
 ListNode* ListInit2();
 
 //释放
-void ListDestory(ListNode* phead);
+void ListDestroy(ListNode* phead);
 void ListClear(ListNode* phead);
 
 ListNode* BuyListNode(LTDataType x);
@@ -37,5 +37,4 @@ ListNode* ListFind(ListNode* phead, LTDataType x);
 void ListInsert(ListNode* pos, LTDataType x);
 void ListErase(ListNode* pos);
 
-//打印
 void ListPrint(ListNode* phead);

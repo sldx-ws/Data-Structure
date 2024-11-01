@@ -15,7 +15,7 @@ typedef struct SeqList
 
 // 初始化 销毁
 void SeqListInit(SeqList* psl);
-void SeqListDestory(SeqList* psl);
+void SeqListDestroy(SeqList* psl);
 
 // 尾插尾删 头插头删
 void SeqListPushBack(SeqList* psl, SLDataType x);
